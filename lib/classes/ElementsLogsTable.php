@@ -1,6 +1,6 @@
 <?php
 
-namespace Sl3w\NewsLogs;
+namespace Sl3w\ElementsLogs;
 
 use Bitrix\Main\Entity\DataManager;
 use Bitrix\Main\Entity\DatetimeField;
@@ -9,11 +9,11 @@ use Bitrix\Main\Entity\BooleanField;
 use Bitrix\Main\Entity\StringField;
 use Bitrix\Main\Type\DateTime;
 
-class NewsLogsTable extends DataManager
+class ElementsLogsTable extends DataManager
 {
     public static function getTableName()
     {
-        return 'sl3w_news_logs';
+        return 'sl3w_elements_logs';
     }
 
     public static function getMap()
@@ -26,7 +26,7 @@ class NewsLogsTable extends DataManager
             new IntegerField('USER_ID', [
                 'required' => true,
             ]),
-            new IntegerField('NEWS_ID', [
+            new IntegerField('ELEMENT_ID', [
                 'required' => true,
             ]),
             new StringField('DO', [

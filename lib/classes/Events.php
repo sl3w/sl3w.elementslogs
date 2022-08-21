@@ -1,32 +1,32 @@
 <?php
 
-namespace Sl3w\NewsLogs;
+namespace Sl3w\ElementsLogs;
 
 class Events
 {
-    public function OnAfterNewsElementAdd($arFields)
+    public function OnAfterIBlockElementAdd($arFields)
     {
-        self::OnAfterNewsElementAddUpdateDelete($arFields, SL3W_NEWSLOGS_TABLE_ADD);
+        self::OnAfterIBlockElementAddUpdateDelete($arFields, SL3W_ELEMENTSLOGS_TABLE_ADD);
     }
 
-    public function OnAfterNewsElementUpdate($arFields)
+    public function OnAfterIBlockElementUpdate($arFields)
     {
-        self::OnAfterNewsElementAddUpdateDelete($arFields, SL3W_NEWSLOGS_TABLE_UPDATE);
+        self::OnAfterIBlockElementAddUpdateDelete($arFields, SL3W_ELEMENTSLOGS_TABLE_UPDATE);
     }
 
-    public function OnAfterNewsElementDelete($arFields)
+    public function OnAfterIBlockElementDelete($arFields)
     {
-        self::OnAfterNewsElementAddUpdateDelete($arFields, SL3W_NEWSLOGS_TABLE_DELETE);
+        self::OnAfterIBlockElementAddUpdateDelete($arFields, SL3W_ELEMENTSLOGS_TABLE_DELETE);
     }
 
-    public static function OnAfterNewsElementAddUpdateDelete($arFields, $do)
+    public static function OnAfterIBlockElementAddUpdateDelete($arFields, $do)
     {
-        if ($arFields['IBLOCK_ID'] != \Sl3w\NewsLogs\Settings::get('iblock_id', 1)) {
+        if ($arFields['IBLOCK_ID'] != \Sl3w\ElementsLogs\Settings::get('iblock_id', 1)) {
             return;
         }
 
         global $USER;
 
-        \Sl3w\NewsLogs\NewslogsTable::add(['USER_ID' => $USER->GetID(), 'DO' => $do, 'NEWS_ID' => $arFields['ID']]);
+        \Sl3w\ElementsLogs\ElementsLogsTable::add(['USER_ID' => $USER->GetID(), 'DO' => $do, 'ELEMENT_ID' => $arFields['ID']]);
     }
 }

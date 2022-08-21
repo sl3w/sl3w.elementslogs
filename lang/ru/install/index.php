@@ -1,19 +1,21 @@
 <?php
 
-$MESS ['SL3W_NEWSLOGS_MODULE_NAME'] = 'Р›РѕРіРіРµСЂ РЅРѕРІРѕСЃС‚РµР№';
-$MESS ['SL3W_NEWSLOGS_MODULE_DESCRIPTION'] = 'РњРѕРґСѓР»СЊ Р»РѕРіРёСЂСѓРµС‚ РґРµР№СЃС‚РІРёСЏ СЃ СЌР»РµРјРµРЅС‚Р°РјРё РёРЅС„РѕР±Р»РѕРєР° Рё РѕС‚РїСЂР°РІР»СЏРµС‚ РёРЅС„РѕСЂРјР°С†РёСЋ РЅР° email';
+$MESS['SL3W_ELEMENTSLOGS_MODULE_NAME'] = 'Логгер действий с элементами инфоблока с уведомлением на Email';
+$MESS['SL3W_ELEMENTSLOGS_MODULE_DESCRIPTION'] = 'Модуль логирует действия с элементами инфоблока и отправляет информацию на Email';
+$MESS ['SL3W_ELEMENTSLOGS_PARTNER_NAME'] = 'SL3W';
+$MESS ['SL3W_ELEMENTSLOGS_PARTNER_URI'] = 'https://github.com/sl3w/sl3w.elementslogs';
 
-$MESS ['SL3W_NEWSLOGS_MAIL_TYPE_NAME'] = 'Р›РѕРіРё РЅРѕРІРѕСЃС‚РµР№';
-$MESS ['SL3W_NEWSLOGS_MAIL_TYPE_DESCRIPTION'] = '
-#EMAIL_TO# E-mail РїРѕР»СѓС‡Р°С‚РµР»СЏ
-#COUNT_ADD# РљРѕР»РёС‡РµСЃС‚РІРѕ РґРѕР±Р°РІР»РµРЅРЅС‹С… РЅРѕРІРѕСЃС‚РµР№
-#COUNT_UPDATE# РљРѕР»РёС‡РµСЃС‚РІРѕ РёР·РјРµРЅРµРЅРЅС‹С… РЅРѕРІРѕСЃС‚РµР№
-#COUNT_DELETE# РљРѕР»РёС‡РµСЃС‚РІРѕ СѓРґР°Р»РµРЅРЅС‹С… РЅРѕРІРѕСЃС‚РµР№
-#FIO# Р¤РРћ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ СЃ РЅР°РёР±РѕР»СЊС€РёРј С‡РёСЃР»РѕРј РїСЂР°РІРѕРє';
+$MESS['SL3W_ELEMENTSLOGS_MAIL_TYPE_NAME'] = 'Логи действий с элементами инфоблока';
+$MESS['SL3W_ELEMENTSLOGS_MAIL_TYPE_DESCRIPTION'] = '
+#EMAIL_TO# E-mail получателя
+#COUNT_ADD# Количество добавленных элементов
+#COUNT_UPDATE# Количество измененных элементов
+#COUNT_DELETE# Количество удаленных элементов
+#FIO# ФИО пользователя с наибольшим числом правок';
 
-$MESS ['SL3W_NEWSLOGS_MAIL_EVENT_SUBJECT'] = 'Р›РѕРіРё РЅРѕРІРѕСЃС‚РµР№';
-$MESS ['SL3W_NEWSLOGS_MAIL_EVENT_MESSAGE'] = '
-РљРѕР»РёС‡РµСЃС‚РІРѕ РґРѕР±Р°РІР»РµРЅРЅС‹С… РЅРѕРІРѕСЃС‚РµР№: #COUNT_ADD#<br>
-РљРѕР»РёС‡РµСЃС‚РІРѕ РёР·РјРµРЅРµРЅРЅС‹С… РЅРѕРІРѕСЃС‚РµР№: #COUNT_UPDATE#<br>
-РљРѕР»РёС‡РµСЃС‚РІРѕ СѓРґР°Р»РµРЅРЅС‹С… РЅРѕРІРѕСЃС‚РµР№: #COUNT_DELETE#<br><br>
-Р‘РѕР»СЊС€Рµ РІСЃРµРіРѕ РїСЂР°РІРѕРє РІРЅС‘c РїРѕР»СЊР·РѕРІР°С‚РµР»СЊ: #FIO#';
+$MESS['SL3W_ELEMENTSLOGS_MAIL_EVENT_SUBJECT'] = 'Логи действий с элементами инфоблока';
+$MESS['SL3W_ELEMENTSLOGS_MAIL_EVENT_MESSAGE'] = '
+Количество добавленных элементов: #COUNT_ADD#<br>
+Количество измененных элементов: #COUNT_UPDATE#<br>
+Количество удаленных элементов: #COUNT_DELETE#<br><br>
+Больше всего правок внёс пользователь: #FIO#';

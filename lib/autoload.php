@@ -1,11 +1,11 @@
 <?php
 
 CModule::AddAutoloadClasses(
-    'sl3w.newslogs',
+    'sl3w.elementslogs',
     [
-        'Sl3w\NewsLogs\Settings' => 'lib/classes/Settings.php',
-        'Sl3w\NewsLogs\Events' => 'lib/classes/Events.php',
-        'Sl3w\NewsLogs\Agents' => 'lib/classes/Agents.php',
-        'Sl3w\NewsLogs\NewsLogsTable' => 'lib/classes/NewsLogsTable.php',
+        'Sl3w\ElementsLogs\Settings' => 'lib/classes/Settings.php',
+        'Sl3w\ElementsLogs\Events' => 'lib/classes/Events.php',
+        'Sl3w\ElementsLogs\Agents' => 'lib/classes/Agents.php',
+        'Sl3w\ElementsLogs\ElementsLogsTable' => 'lib/classes/ElementsLogsTable.php',
     ]
 );

@@ -10,13 +10,16 @@ use Bitrix\Main\Localization\Loc;
 
 Loc::loadMessages(__FILE__);
 
-class sl3w_newslogs extends CModule
+class sl3w_elementslogs extends CModule
 {
-    var $MODULE_ID = 'sl3w.newslogs';
+    var $MODULE_ID = 'sl3w.elementslogs';
     var $MODULE_VERSION;
     var $MODULE_VERSION_DATE;
     var $MODULE_NAME;
     var $MODULE_DESCRIPTION;
+    var $PARTNER_NAME;
+    var $PARTNER_URI;
+    var $MODULE_DIR;
 
     public function __construct()
     {
@@ -29,8 +32,13 @@ class sl3w_newslogs extends CModule
             $this->MODULE_VERSION = $arModuleVersion['VERSION'];
             $this->MODULE_VERSION_DATE = $arModuleVersion['VERSION_DATE'];
 
-            $this->MODULE_NAME = Loc::getMessage('SL3W_NEWSLOGS_MODULE_NAME');
-            $this->MODULE_DESCRIPTION = Loc::getMessage('SL3W_NEWSLOGS_MODULE_DESCRIPTION');
+            $this->MODULE_NAME = Loc::getMessage('SL3W_ELEMENTSLOGS_MODULE_NAME');
+            $this->MODULE_DESCRIPTION = Loc::getMessage('SL3W_ELEMENTSLOGS_MODULE_DESCRIPTION');
+
+            $this->PARTNER_NAME = Loc::getMessage('SL3W_ELEMENTSLOGS_PARTNER_NAME');
+            $this->PARTNER_URI = Loc::getMessage('SL3W_ELEMENTSLOGS_PARTNER_URI');
+
+            $this->MODULE_DIR = dirname(__FILE__) . '/../';
         }
     }
 
@@ -58,10 +66,10 @@ class sl3w_newslogs extends CModule
 
     public function InstallDB()
     {
-        include_once(__DIR__ . '/../lib/classes/NewsLogsTable.php');
+        include_once(__DIR__ . '/../lib/classes/ElementsLogsTable.php');
 
-        if (!Application::getConnection()->isTableExists(Base::getInstance('\Sl3w\NewsLogs\NewsLogsTable')->getDBTableName())) {
-            Base::getInstance('\Sl3w\NewsLogs\NewsLogsTable')->createDBTable();
+        if (!Application::getConnection()->isTableExists(Base::getInstance('\Sl3w\ElementsLogs\ElementsLogsTable')->getDBTableName())) {
+            Base::getInstance('\Sl3w\ElementsLogs\ElementsLogsTable')->createDBTable();
         }
 
         return true;
@@ -69,10 +77,10 @@ class sl3w_newslogs extends CModule
 
     public function UnInstallDB()
     {
-        include_once(__DIR__ . '/../lib/classes/NewsLogsTable.php');
+        include_once(__DIR__ . '/../lib/classes/ElementsLogsTable.php');
 
-        if (Application::getConnection()->isTableExists(Base::getInstance('\Sl3w\NewsLogs\NewsLogsTable')->getDBTableName())) {
-            Application::getConnection()->dropTable(Base::getInstance('\Sl3w\NewsLogs\NewsLogsTable')->getDBTableName());
+        if (Application::getConnection()->isTableExists(Base::getInstance('\Sl3w\ElementsLogs\ElementsLogsTable')->getDBTableName())) {
+            Application::getConnection()->dropTable(Base::getInstance('\Sl3w\ElementsLogs\ElementsLogsTable')->getDBTableName());
         }
 
         return true;
@@ -82,9 +90,9 @@ class sl3w_newslogs extends CModule
     {
         $arrCeventType = [
             'LID' => SITE_ID,
-            'EVENT_NAME' => 'NEWS_LOGS',
-            'NAME' => Loc::getMessage('SL3W_NEWSLOGS_MAIL_TYPE_NAME'),
-            'DESCRIPTION' => Loc::getMessage('SL3W_NEWSLOGS_MAIL_TYPE_DESCRIPTION'),
+            'EVENT_NAME' => 'ELEMENTS_LOGS',
+            'NAME' => Loc::getMessage('SL3W_ELEMENTSLOGS_MAIL_TYPE_NAME'),
+            'DESCRIPTION' => Loc::getMessage('SL3W_ELEMENTSLOGS_MAIL_TYPE_DESCRIPTION'),
         ];
 
         $et = new CEventType;
@@ -100,13 +108,13 @@ class sl3w_newslogs extends CModule
 
             $arr = array(
                 'ACTIVE' => 'Y',
-                'EVENT_NAME' => 'NEWS_LOGS',
+                'EVENT_NAME' => 'ELEMENTS_LOGS',
                 'LID' => $arSites,
                 'EMAIL_FROM' => '#DEFAULT_EMAIL_FROM#',
                 'EMAIL_TO' => '#EMAIL_TO#',
-                'SUBJECT' => Loc::getMessage('SL3W_NEWSLOGS_MAIL_EVENT_SUBJECT'),
+                'SUBJECT' => Loc::getMessage('SL3W_ELEMENTSLOGS_MAIL_EVENT_SUBJECT'),
                 'BODY_TYPE' => 'html',
-                'MESSAGE' => Loc::getMessage('SL3W_NEWSLOGS_MAIL_EVENT_MESSAGE')
+                'MESSAGE' => Loc::getMessage('SL3W_ELEMENTSLOGS_MAIL_EVENT_MESSAGE')
             );
 
             $emess = new CEventMessage;
@@ -119,12 +127,12 @@ class sl3w_newslogs extends CModule
         global $DB;
 
         $et = new CEventType;
-        $et->Delete('NEWS_LOGS');
+        $et->Delete('ELEMENTS_LOGS');
 
         $DB->StartTransaction();
 
         $emessage = new CEventMessage;
-        $rsMess = CEventMessage::GetList($b = 'site_id', $o = 'desc', ['TYPE_ID' => 'NEWS_LOGS']);
+        $rsMess = CEventMessage::GetList($b = 'site_id', $o = 'desc', ['TYPE_ID' => 'ELEMENTS_LOGS']);
 
         while ($events = $rsMess->GetNext()) {
             $emessage->Delete(intval($events["ID"]));
@@ -135,13 +143,13 @@ class sl3w_newslogs extends CModule
     public function InstallAgents()
     {
         \CAgent::AddAgent(
-            '\Sl3w\NewsLogs\Agents::sendNewslogs();',
+            '\Sl3w\ElementsLogs\Agents::sendElementsLogs();',
             $this->MODULE_ID,
-            'N', //периодичность
-            7 * 24 * 3600, //интервал
+            'N', //�������������
+            7 * 24 * 3600, //��������
             '',
-            'Y', //активность
-            date('d.m.Y H:i:s', strtotime('+1 day')) //следующий запуск
+            'Y', //����������
+            date('d.m.Y H:i:s', strtotime('+1 day')) //��������� ������
         );
 
         return true;
@@ -161,24 +169,24 @@ class sl3w_newslogs extends CModule
             'iblock',
             'OnAfterIBlockElementAdd',
             $this->MODULE_ID,
-            'Sl3w\NewsLogs\Events',
-            'OnAfterNewsElementAdd'
+            'Sl3w\ElementsLogs\Events',
+            'OnAfterIBlockElementAdd'
         );
 
         EventManager::getInstance()->registerEventHandler(
             'iblock',
             'OnAfterIBlockElementUpdate',
             $this->MODULE_ID,
-            'Sl3w\NewsLogs\Events',
-            'OnAfterNewsElementUpdate'
+            'Sl3w\ElementsLogs\Events',
+            'OnAfterIBlockElementUpdate'
         );
 
         EventManager::getInstance()->registerEventHandler(
             'iblock',
             'OnAfterIBlockElementDelete',
             $this->MODULE_ID,
-            'Sl3w\NewsLogs\Events',
-            'OnAfterNewsElementDelete'
+            'Sl3w\ElementsLogs\Events',
+            'OnAfterIBlockElementDelete'
         );
 
         return true;
@@ -190,24 +198,24 @@ class sl3w_newslogs extends CModule
             'iblock',
             'OnAfterIBlockElementAdd',
             $this->MODULE_ID,
-            'Sl3w\NewsLogs\Events',
-            'OnAfterNewsElementAdd'
+            'Sl3w\ElementsLogs\Events',
+            'OnAfterIBlockElementAdd'
         );
 
         EventManager::getInstance()->unRegisterEventHandler(
             'iblock',
             'OnAfterIBlockElementUpdate',
             $this->MODULE_ID,
-            'Sl3w\NewsLogs\Events',
-            'OnAfterNewsElementUpdate'
+            'Sl3w\ElementsLogs\Events',
+            'OnAfterIBlockElementUpdate'
         );
 
         EventManager::getInstance()->unRegisterEventHandler(
             'iblock',
             'OnAfterIBlockElementDelete',
             $this->MODULE_ID,
-            'Sl3w\NewsLogs\Events',
-            'OnAfterNewsElementDelete'
+            'Sl3w\ElementsLogs\Events',
+            'OnAfterIBlockElementDelete'
         );
 
         return true;

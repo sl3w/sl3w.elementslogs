@@ -1,0 +1,6 @@
+<?php
+
+$MESS['SL3W_ELEMENTSLOGS_UNSTEP_BEFORE'] = 'Модуль';
+$MESS['SL3W_ELEMENTSLOGS_MODULE_NAME'] = 'Логгер элементов инфоблока';
+$MESS['SL3W_ELEMENTSLOGS_UNSTEP_AFTER'] = 'удален';
+$MESS['SL3W_ELEMENTSLOGS_UNSTEP_BACK'] = 'Вернуться в список';

@@ -1,10 +1,10 @@
 <?php
 
-$MESS ['SL3W_NEWSLOGS_OPTIONS_TAB_NAME'] = 'ÐÐ°ÑÑ‚Ñ€Ð¾Ð¹ÐºÐ¸';
-$MESS ['SL3W_NEWSLOGS_OPTIONS_IBLOCK_ID'] = 'ID Ð¸Ð½Ñ„Ð¾Ð±Ð»Ð¾ÐºÐ° Ñ Ð½Ð¾Ð²Ð¾ÑÑ‚ÑÐ¼Ð¸:';
-$MESS ['SL3W_NEWSLOGS_OPTIONS_EMAIL'] = 'Email Ð´Ð»Ñ Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ñ Ñ€ÐµÐ·ÑƒÐ»ÑŒÑ‚Ð°Ñ‚Ð¾Ð²:';
+$MESS ['SL3W_ELEMENTSLOGS_OPTIONS_TAB_NAME'] = 'Íàñòðîéêè';
+$MESS ['SL3W_ELEMENTSLOGS_OPTIONS_IBLOCK_ID'] = 'ID èíôîáëîêà äëÿ ëîããèðîâàíèÿ:';
+$MESS ['SL3W_ELEMENTSLOGS_OPTIONS_EMAIL'] = 'Email äëÿ ïîëó÷åíèÿ ðåçóëüòàòîâ:';
 
-$MESS ['SL3W_NEWSLOGS_OPTIONS_IBLOCK_ERROR'] = 'ÐžÑˆÐ¸Ð±ÐºÐ° Ð¿Ð¾Ð´ÐºÐ»ÑŽÑ‡ÐµÐ½Ð¸Ñ Ð¼Ð¾Ð´ÑƒÐ»Ñ "Ð˜Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ð¾Ð½Ð½Ñ‹Ðµ Ð±Ð»Ð¾ÐºÐ¸"';
+$MESS ['SL3W_ELEMENTSLOGS_OPTIONS_IBLOCK_ERROR'] = 'Îøèáêà ïîäêëþ÷åíèÿ ìîäóëÿ "Èíôîðìàöèîííûå áëîêè"';
 
-$MESS ['SL3W_NEWSLOGS_OPTIONS_APPLY'] = 'ÐŸÑ€Ð¸Ð¼ÐµÐ½Ð¸Ñ‚ÑŒ';
-$MESS ['SL3W_NEWSLOGS_OPTIONS_DEFAULT'] = 'ÐŸÐ¾ ÑƒÐ¼Ð¾Ð»Ñ‡Ð°Ð½Ð¸ÑŽ';
+$MESS ['SL3W_ELEMENTSLOGS_OPTIONS_APPLY'] = 'Ïðèìåíèòü';
+$MESS ['SL3W_ELEMENTSLOGS_OPTIONS_DEFAULT'] = 'Ïî óìîë÷àíèþ';

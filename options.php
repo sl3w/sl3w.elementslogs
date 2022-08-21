@@ -14,7 +14,7 @@ $module_id = htmlspecialcharsbx($request['mid'] != '' ? $request['mid'] : $reque
 Loader::includeModule($module_id);
 
 if (!CModule::IncludeModule('iblock')) {
-    ShowMessage(Loc::getMessage('SL3W_NEWSLOGS_OPTIONS_IBLOCK_ERROR'));
+    ShowMessage(Loc::getMessage('SL3W_ELEMENTSLOGS_OPTIONS_IBLOCK_ERROR'));
     return false;
 }
 
@@ -27,18 +27,18 @@ while ($arIBlock = $dbIBlocks->GetNext()) {
 $aTabs = array(
     [
         'DIV' => 'edit',
-        'TAB' => Loc::getMessage('SL3W_NEWSLOGS_OPTIONS_TAB_NAME'),
-        'TITLE' => Loc::getMessage('SL3W_NEWSLOGS_OPTIONS_TAB_NAME'),
+        'TAB' => Loc::getMessage('SL3W_ELEMENTSLOGS_OPTIONS_TAB_NAME'),
+        'TITLE' => Loc::getMessage('SL3W_ELEMENTSLOGS_OPTIONS_TAB_NAME'),
         'OPTIONS' => [
             [
                 'iblock_id',
-                Loc::getMessage('SL3W_NEWSLOGS_OPTIONS_IBLOCK_ID'),
+                Loc::getMessage('SL3W_ELEMENTSLOGS_OPTIONS_IBLOCK_ID'),
                 1,
                 ['selectbox', $selectIBlocks]
             ],
             [
                 'email',
-                Loc::getMessage('SL3W_NEWSLOGS_OPTIONS_EMAIL'),
+                Loc::getMessage('SL3W_ELEMENTSLOGS_OPTIONS_EMAIL'),
                 '',
                 ['text', 30]
             ],
@@ -71,9 +71,9 @@ $tabControl->Begin();
         $tabControl->Buttons();
         ?>
 
-        <input type="submit" name="apply" value="<?= Loc::GetMessage('SL3W_NEWSLOGS_OPTIONS_APPLY') ?>"
+        <input type="submit" name="apply" value="<?= Loc::GetMessage('SL3W_ELEMENTSLOGS_OPTIONS_APPLY') ?>"
                class="adm-btn-save"/>
-        <input type="submit" name="default" value="<?= Loc::GetMessage('SL3W_NEWSLOGS_OPTIONS_DEFAULT') ?>"/>
+        <input type="submit" name="default" value="<?= Loc::GetMessage('SL3W_ELEMENTSLOGS_OPTIONS_DEFAULT') ?>"/>
 
         <?= bitrix_sessid_post() ?>
 

@@ -1,69 +1,69 @@
 <?php
 
-namespace Sl3w\NewsLogs;
+namespace Sl3w\ElementsLogs;
 
 class Agents
 {
-    public static function sendNewslogs()
+    public static function sendElementsLogs()
     {
-        $newsLogs = \Sl3w\NewsLogs\NewslogsTable::getList([
+        $elementsLogs = \Sl3w\ElementsLogs\ElementsLogsTable::getList([
             'order' => ['ID' => 'ASC'],
             'filter' => ['SENT' => 'N']
         ])->fetchAll();
 
-        if (!empty($newsLogs)) {
+        if (!empty($elementsLogs)) {
 
             $countByUser = [];
-            $updateNewsByUser = [];
+            $updateElementsByUser = [];
 
-            $addedNews = [];
-            $updatedNews = [];
-            $removedNews = [];
+            $addedElements = [];
+            $updatedElements = [];
+            $removedElements = [];
 
-            foreach ($newsLogs as $newsLog) {
+            foreach ($elementsLogs as $elementLog) {
 
-                switch ($newsLog['DO']) {
-                    case SL3W_NEWSLOGS_TABLE_ADD:
-                        //Ð´Ð¾Ð±Ð°Ð²Ð»ÑÐµÐ¼ Ð½Ð¾Ð²Ð¾ÑÑ‚ÑŒ Ð² ÑÐ¿Ð¸ÑÐ¾Ðº Ð´Ð¾Ð±Ð°Ð²Ð»ÐµÐ½Ð½Ñ‹Ñ…
-                        $addedNews[$newsLog['NEWS_ID']] = $newsLog['NEWS_ID'];
-                        //ÑÑ‡Ð¸Ñ‚Ð°ÐµÐ¼ Ð´ÐµÐ¹ÑÑ‚Ð²Ð¸Ðµ Ð¿Ð¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ñ‚ÐµÐ»Ñ
-                        $countByUser[$newsLog['USER_ID']]++;
+                switch ($elementLog['DO']) {
+                    case SL3W_ELEMENTSLOGS_TABLE_ADD:
+                        //äîáàâëÿåì ýëåìåíò â ñïèñîê äîáàâëåííûõ
+                        $addedElements[$elementLog['ELEMENT_ID']] = $elementLog['ELEMENT_ID'];
+                        //ñ÷èòàåì äåéñòâèå ïîëüçîâàòåëÿ
+                        $countByUser[$elementLog['USER_ID']]++;
                         break;
 
-                    case SL3W_NEWSLOGS_TABLE_UPDATE:
-                        //Ð½Ðµ ÑƒÑ‡Ð¸Ñ‚Ñ‹Ð²Ð°ÐµÐ¼ Ð½Ð¾Ð²Ð¾ÑÑ‚Ð¸, ÐºÐ¾Ñ‚Ð¾Ñ€Ñ‹Ðµ Ð² ÑÑ‚Ð¾Ð¼ Ð¿ÐµÑ€Ð¸Ð¾Ð´Ðµ Ð±Ñ‹Ð»Ð¸ Ñ€Ð°Ð½ÐµÐµ Ð´Ð¾Ð±Ð°Ð²Ð»ÐµÐ½Ñ‹,
-                        //Ð° Ñ‚Ð°ÐºÐ¶Ðµ ÑƒÑ‡Ð¸Ñ‚Ñ‹Ð²Ð°ÐµÐ¼ Ð¸Ð·Ð¼ÐµÐ½ÐµÐ½Ð¸Ðµ Ð¾Ð´Ð½Ð¾Ð¹ Ð½Ð¾Ð²Ð¾ÑÑ‚Ð¸ Ñ‚Ð¾Ð»ÑŒÐºÐ¾ Ð¾Ð´Ð¸Ð½ Ñ€Ð°Ð· Ð·Ð° Ð¿ÐµÑ€Ð¸Ð¾Ð´, ÐºÑ‚Ð¾ Ð±Ñ‹ ÐµÐµ Ð½Ð¸ Ð¿Ñ€Ð°Ð²Ð¸Ð»
-                        if (!in_array($newsLog['NEWS_ID'], $addedNews) && !in_array($newsLog['NEWS_ID'], $updatedNews)) {
-                            $updatedNews[$newsLog['NEWS_ID']] = $newsLog['NEWS_ID'];
+                    case SL3W_ELEMENTSLOGS_TABLE_UPDATE:
+                        //íå ó÷èòûâàåì ýëåìåíòû, êîòîðûå â ýòîì ïåðèîäå áûëè ðàíåå äîáàâëåíû,
+                        //à òàêæå ó÷èòûâàåì èçìåíåíèå îäíîãî ýëåìåíòà òîëüêî îäèí ðàç çà ïåðèîä, êòî áû åå íè ïðàâèë
+                        if (!in_array($elementLog['ELEMENT_ID'], $addedElements) && !in_array($elementLog['ELEMENT_ID'], $updatedElements)) {
+                            $updatedElements[$elementLog['ELEMENT_ID']] = $elementLog['ELEMENT_ID'];
                         }
 
-                        //Ð¾Ñ‚Ð¼ÐµÑ‡Ð°ÐµÐ¼, Ñ‡Ñ‚Ð¾ Ð´Ð°Ð½Ð½ÑƒÑŽ Ð½Ð¾Ð²Ð¾ÑÑ‚ÑŒ Ð¿Ñ€Ð°Ð²Ð¸Ð» ÐºÐ¾Ð½ÐºÑ€ÐµÑ‚Ð½Ñ‹Ð¹ ÑŽÐ·ÐµÑ€
-                        $updateNewsByUser[$newsLog['NEWS_ID']][$newsLog['USER_ID']]++;
+                        //îòìå÷àåì, ÷òî äàííûé ýëåìåíò ïðàâèë êîíêðåòíûé ïîëüçîâàòåëü
+                        $updateElementsByUser[$elementLog['ELEMENT_ID']][$elementLog['USER_ID']]++;
 
-                        //ÑƒÑ‡Ð¸Ñ‚Ñ‹Ð²Ð°ÐµÐ¼ Ð´ÐµÐ¹ÑÑ‚Ð²Ð¸Ðµ (Ð¸Ð·Ð¼ÐµÐ½ÐµÐ½Ð¸Ðµ) ÑŽÐ·ÐµÑ€Ð¾Ð¼ Ð¾Ð´Ð½Ð¾Ð¹ Ð½Ð¾Ð²Ð¾ÑÑ‚Ð¸ Ñ‚Ð¾Ð»ÑŒÐºÐ¾ Ð¾Ð´Ð¸Ð½ Ñ€Ð°Ð· Ð·Ð° Ð¿ÐµÑ€Ð¸Ð¾Ð´
-                        if ($updateNewsByUser[$newsLog['NEWS_ID']][$newsLog['USER_ID']] == 1) {
-                            $countByUser[$newsLog['USER_ID']]++;
+                        //ó÷èòûâàåì äåéñòâèå (èçìåíåíèå) ïîëüçîâàòåëåì îäíîãî ýëåìåíòà òîëüêî îäèí ðàç çà ïåðèîä
+                        if ($updateElementsByUser[$elementLog['ELEMENT_ID']][$elementLog['USER_ID']] == 1) {
+                            $countByUser[$elementLog['USER_ID']]++;
                         }
                         break;
 
-                    case SL3W_NEWSLOGS_TABLE_DELETE:
-                        if (in_array($newsLog['NEWS_ID'], $addedNews)) {
-                            //ÑƒÐ´Ð°Ð»ÑÐµÐ¼ Ð½Ð¾Ð²Ð¾ÑÑ‚ÑŒ Ð¸Ð· ÑÐ¿Ð¸ÑÐºÐ° Ð´Ð¾Ð±Ð°Ð²Ð»ÐµÐ½Ð½Ñ‹Ñ…, ÐµÑÐ»Ð¸ Ð¾Ð½Ð° Ð·Ð° Ð¿ÐµÑ€Ð¸Ð¾Ð´ Ð±Ñ‹Ð»Ð° Ð´Ð¾Ð±Ð°Ð²Ð»ÐµÐ½Ð°, Ð° Ð¿Ð¾Ñ‚Ð¾Ð¼ ÑƒÐ´Ð°Ð»ÐµÐ½Ð°
-                            unset($addedNews[$newsLog['NEWS_ID']]);
+                    case SL3W_ELEMENTSLOGS_TABLE_DELETE:
+                        if (in_array($elementLog['ELEMENT_ID'], $addedElements)) {
+                            //óäàëÿåì ýëåìåíò èç ñïèñêà äîáàâëåííûõ, åñëè îí çà ïåðèîä áûë äîáàâëåí, à ïîòîì óäàëåí
+                            unset($addedElements[$elementLog['ELEMENT_ID']]);
                         } else {
-                            //ÑƒÐ´Ð°Ð»ÑÐµÐ¼ Ð½Ð¾Ð²Ð¾ÑÑ‚ÑŒ Ð¸Ð· ÑÐ¿Ð¸ÑÐºÐ° Ð¸Ð·Ð¼ÐµÐ½ÐµÐ½Ð½Ñ‹Ñ…, ÐµÑÐ»Ð¸ Ð¾Ð½Ð° Ð·Ð° Ð¿ÐµÑ€Ð¸Ð¾Ð´ Ð±Ñ‹Ð»Ð° Ð¸Ð·Ð¼ÐµÐ½ÐµÐ½Ð°, Ð° Ð¿Ð¾Ñ‚Ð¾Ð¼ ÑƒÐ´Ð°Ð»ÐµÐ½Ð°
-                            unset($updatedNews[$newsLog['NEWS_ID']]);
-                            //Ð´Ð¾Ð±Ð°Ð²Ð»ÑÐµÐ¼ Ð² ÑÐ¿Ð¸ÑÐ¾Ðº ÑƒÐ´Ð°Ð»ÐµÐ½Ð½Ñ‹Ñ…
-                            $removedNews[$newsLog['NEWS_ID']] = $newsLog['NEWS_ID'];
+                            //óäàëÿåì ýëåìåíò èç ñïèñêà èçìåíåííûõ, åñëè îí çà ïåðèîä áûëà èçìåíåí, à ïîòîì óäàëåí
+                            unset($updatedElements[$elementLog['ELEMENT_ID']]);
+                            //äîáàâëÿåì â ñïèñîê óäàëåííûõ
+                            $removedElements[$elementLog['ELEMENT_ID']] = $elementLog['ELEMENT_ID'];
                         }
 
-                        //ÑÑ‡Ð¸Ñ‚Ð°ÐµÐ¼ Ð´ÐµÐ¹ÑÑ‚Ð²Ð¸Ðµ Ð¿Ð¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ñ‚ÐµÐ»Ñ
-                        $countByUser[$newsLog['USER_ID']]++;
+                        //ñ÷èòàåì äåéñòâèå ïîëüçîâàòåëÿ
+                        $countByUser[$elementLog['USER_ID']]++;
                         break;
                 }
 
-                //Ð¿Ð¾Ð¼ÐµÑ‡Ð°ÐµÐ¼ Ð»Ð¾Ð³, ÐºÐ°Ðº Ð¾Ð±Ñ€Ð°Ð±Ð¾Ñ‚Ð°Ð½Ð½Ñ‹Ð¹
-                \Sl3w\NewsLogs\NewslogsTable::update($newsLog['ID'], ['SENT' => 'Y']);
+                //ïîìå÷àåì ëîã, êàê îáðàáîòàííûé
+                \Sl3w\ElementsLogs\ElementsLogsTable::update($elementLog['ID'], ['SENT' => 'Y']);
             }
 
             if (!empty($countByUser)) {
@@ -73,15 +73,15 @@ class Agents
                 ]);
             }
 
-            add_mail_event('NEWS_LOGS', [
+            add_mail_event('ELEMENTS_LOGS', [
                 'FIO' => !empty($user) ? (sprintf('%s %s %s', $user['LAST_NAME'], $user['NAME'], $user['SECOND_NAME']) ?: $user['LOGIN']) : '',
-                'COUNT_ADD' => count($addedNews),
-                'COUNT_UPDATE' => count($updatedNews),
-                'COUNT_DELETE' => count($removedNews),
-                'EMAIL_TO' => \Sl3w\NewsLogs\Settings::get('email')
+                'COUNT_ADD' => count($addedElements),
+                'COUNT_UPDATE' => count($updatedElements),
+                'COUNT_DELETE' => count($removedElements),
+                'EMAIL_TO' => \Sl3w\ElementsLogs\Settings::get('email')
             ]);
         }
 
-        return '\Sl3w\NewsLogs\Agents::sendNewslogs();';
+        return '\Sl3w\ElementsLogs\Agents::sendElementsLogs();';
     }
 }
