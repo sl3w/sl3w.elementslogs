@@ -27,7 +27,7 @@ class sl3w_elementslogs extends CModule
 
             $arModuleVersion = [];
 
-            include_once(__DIR__ . '/version.php');
+            include(__DIR__ . '/version.php');
 
             $this->MODULE_VERSION = $arModuleVersion['VERSION'];
             $this->MODULE_VERSION_DATE = $arModuleVersion['VERSION_DATE'];
