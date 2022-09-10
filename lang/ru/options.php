@@ -6,5 +6,5 @@ $MESS ['SL3W_ELEMENTSLOGS_OPTIONS_EMAIL'] = 'Email для получения результатов:';
 
 $MESS ['SL3W_ELEMENTSLOGS_OPTIONS_IBLOCK_ERROR'] = 'Ошибка подключения модуля "Информационные блоки"';
 
-$MESS ['SL3W_ELEMENTSLOGS_OPTIONS_APPLY'] = 'Применить';
-$MESS ['SL3W_ELEMENTSLOGS_OPTIONS_DEFAULT'] = 'По умолчанию';
+$MESS ['SL3W_ELEMENTSLOGS_BUTTON_APPLY'] = 'Применить';
+$MESS ['SL3W_ELEMENTSLOGS_BUTTON_DEFAULT'] = 'По умолчанию';

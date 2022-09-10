@@ -71,9 +71,9 @@ $tabControl->Begin();
         $tabControl->Buttons();
         ?>
 
-        <input type="submit" name="apply" value="<?= Loc::GetMessage('SL3W_ELEMENTSLOGS_OPTIONS_APPLY') ?>"
+        <input type="submit" name="apply" value="<?= Loc::GetMessage('SL3W_ELEMENTSLOGS_BUTTON_APPLY') ?>"
                class="adm-btn-save"/>
-        <input type="submit" name="default" value="<?= Loc::GetMessage('SL3W_ELEMENTSLOGS_OPTIONS_DEFAULT') ?>"/>
+        <input type="submit" name="default" value="<?= Loc::GetMessage('SL3W_ELEMENTSLOGS_BUTTON_DEFAULT') ?>"/>
 
         <?= bitrix_sessid_post() ?>
 
@@ -88,13 +88,7 @@ if ($request->isPost() && check_bitrix_sessid()) {
 
         foreach ($aTab['OPTIONS'] as $arOption) {
 
-            if (!is_array($arOption)) {
-
-                continue;
-            }
-
-            if ($arOption['note']) {
-
+            if (!is_array($arOption) || $arOption['note']) {
                 continue;
             }
 
@@ -102,12 +96,8 @@ if ($request->isPost() && check_bitrix_sessid()) {
 
                 $optionValue = $request->getPost($arOption[0]);
 
-                if ($arOption[0] == 'switch_on') {
-
-                    if ($optionValue == '') {
-
-                        $optionValue = 'N';
-                    }
+                if ($arOption[3][0] == 'checkbox' && $optionValue == '') {
+                    $optionValue = 'N';
                 }
 
                 Option::set($module_id, $arOption[0], is_array($optionValue) ? implode(',', $optionValue) : $optionValue);
