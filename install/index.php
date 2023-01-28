@@ -99,14 +99,14 @@ class sl3w_elementslogs extends CModule
         $res = $et->Add($arrCeventType);
 
         if ($res) {
-            $dbSites = CSite::GetList(($b = ''), ($o = ''), array('ACTIVE' => 'Y'));
+            $dbSites = CSite::GetList(($b = ''), ($o = ''), ['ACTIVE' => 'Y']);
 
             $arSites = [];
             while ($site = $dbSites->Fetch()) {
                 $arSites[] = $site['LID'];
             }
 
-            $arr = array(
+            $arr = [
                 'ACTIVE' => 'Y',
                 'EVENT_NAME' => 'ELEMENTS_LOGS',
                 'LID' => $arSites,
@@ -115,7 +115,7 @@ class sl3w_elementslogs extends CModule
                 'SUBJECT' => Loc::getMessage('SL3W_ELEMENTSLOGS_MAIL_EVENT_SUBJECT'),
                 'BODY_TYPE' => 'html',
                 'MESSAGE' => Loc::getMessage('SL3W_ELEMENTSLOGS_MAIL_EVENT_MESSAGE')
-            );
+            ];
 
             $emess = new CEventMessage;
             $emess->Add($arr);
@@ -145,11 +145,11 @@ class sl3w_elementslogs extends CModule
         \CAgent::AddAgent(
             '\Sl3w\ElementsLogs\Agents::sendElementsLogs();',
             $this->MODULE_ID,
-            'N', //�������������
-            7 * 24 * 3600, //��������
+            'N',
+            7 * 24 * 3600,
             '',
-            'Y', //����������
-            date('d.m.Y H:i:s', strtotime('+1 day')) //��������� ������
+            'Y',
+            date('d.m.Y H:i:s', strtotime('+1 day'))
         );
 
         return true;
@@ -164,7 +164,6 @@ class sl3w_elementslogs extends CModule
 
     public function InstallEvents()
     {
-
         EventManager::getInstance()->registerEventHandler(
             'iblock',
             'OnAfterIBlockElementAdd',

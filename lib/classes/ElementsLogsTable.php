@@ -34,7 +34,7 @@ class ElementsLogsTable extends DataManager
             ]),
             new BooleanField('SENT', [
                 'data_type' => 'boolean',
-                'values' => array('N', 'Y'),
+                'values' => ['N', 'Y'],
                 'default_value' => 'N',
             ]),
             new DatetimeField('DATE_UPDATE', [

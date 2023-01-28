@@ -4,17 +4,17 @@ namespace Sl3w\ElementsLogs;
 
 class Events
 {
-    public function OnAfterIBlockElementAdd($arFields)
+    public static function OnAfterIBlockElementAdd($arFields)
     {
         self::OnAfterIBlockElementAddUpdateDelete($arFields, SL3W_ELEMENTSLOGS_TABLE_ADD);
     }
 
-    public function OnAfterIBlockElementUpdate($arFields)
+    public static function OnAfterIBlockElementUpdate($arFields)
     {
         self::OnAfterIBlockElementAddUpdateDelete($arFields, SL3W_ELEMENTSLOGS_TABLE_UPDATE);
     }
 
-    public function OnAfterIBlockElementDelete($arFields)
+    public static function OnAfterIBlockElementDelete($arFields)
     {
         self::OnAfterIBlockElementAddUpdateDelete($arFields, SL3W_ELEMENTSLOGS_TABLE_DELETE);
     }

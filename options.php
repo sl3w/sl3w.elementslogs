@@ -24,7 +24,7 @@ while ($arIBlock = $dbIBlocks->GetNext()) {
     $selectIBlocks[$arIBlock['ID']] = '[' . $arIBlock['ID'] . '] ' . $arIBlock['NAME'];
 }
 
-$aTabs = array(
+$aTabs = [
     [
         'DIV' => 'edit',
         'TAB' => Loc::getMessage('SL3W_ELEMENTSLOGS_OPTIONS_TAB_NAME'),
@@ -44,7 +44,7 @@ $aTabs = array(
             ],
         ]
     ]
-);
+];
 
 $tabControl = new CAdminTabControl(
     'tabControl',
@@ -109,5 +109,5 @@ if ($request->isPost() && check_bitrix_sessid()) {
         }
     }
 
-    LocalRedirect($APPLICATION->GetCurPage() . '?mid=' . $module_id . '&lang=' . LANG);
+    LocalRedirect($APPLICATION->GetCurPage() . '?mid=' . $module_id . '&lang=' . LANG . '&mid_menu=1');
 }
